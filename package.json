@@ -1,0 +1,36 @@
+{
+  "name": "@token.store/ethjs-order-signer",
+  "version": "0.1.1",
+  "description": "Package for signing orders for node.js and browser",
+  "keywords": [
+    "token.store"
+  ],
+  "license": "MIT",
+  "files": [
+    "src"
+  ],
+  "main": "src/signer.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:tokenstore/ethjs-order-signer.git"
+  },
+  "scripts": {
+    "doc": "jsdoc2md src/**.js > Readme.md",
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix",
+    "test": "npm run lint && mocha"
+  },
+  "dependencies": {
+    "ethereumjs-util": "5.2.0"
+  },
+  "devDependencies": {
+    "eslint": "4.19.1",
+    "eslint-config-standard": "11.0.0",
+    "eslint-plugin-import": "2.11.0",
+    "eslint-plugin-node": "6.0.1",
+    "eslint-plugin-promise": "3.7.0",
+    "eslint-plugin-standard": "3.1.0",
+    "jsdoc-to-markdown": "^4.0.1",
+    "mocha": "5.1.1"
+  }
+}
