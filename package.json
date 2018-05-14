@@ -1,6 +1,6 @@
 {
   "name": "@token.store/ethjs-order-signer",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Package for signing orders for node.js and browser",
   "keywords": [
     "token.store"
@@ -21,6 +21,7 @@
     "test": "npm run lint && mocha"
   },
   "dependencies": {
+    "bignumber.js": "^4.1.0",
     "ethereumjs-util": "5.2.0"
   },
   "devDependencies": {

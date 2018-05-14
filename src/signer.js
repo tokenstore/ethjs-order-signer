@@ -2,13 +2,14 @@
  * @module @token.store/ethjs-order-signer
  */
 const {
-  BN,
   ecsign,
   ecrecover,
   pubToAddress,
   sha256,
   hashPersonalMessage
 } = require('ethereumjs-util')
+
+const BigNumber = require('bignumber.js')
 
 function zeroPad (num, places) {
   const zero = (places - num.toString().length) + 1
@@ -83,8 +84,7 @@ function decToHex (dec, lengthIn) {
   let length = lengthIn
   if (!length) length = 32
   if (dec < 0) {
-    // return convertBase((Math.pow(2, length) + decStr).toString(), 10, 16);
-    return (new BN(2)).pow(length).add(new BN(dec)).toString(16)
+    return (new BigNumber(2)).pow(length).add(new BigNumber(dec)).toString(16)
   }
   let result = null
   try {
@@ -95,7 +95,7 @@ function decToHex (dec, lengthIn) {
   if (result) {
     return result
   }
-  return (new BN(dec)).toString(16)
+  return (new BigNumber(dec)).toString(16)
 }
 
 function pack (dataIn, lengths) {
@@ -105,7 +105,7 @@ function pack (dataIn, lengths) {
     if (typeof (data[i]) === 'string' && data[i].substring(0, 2) === '0x') {
       if (data[i].substring(0, 2) === '0x') data[i] = data[i].substring(2)
       packed += zeroPad(data[i], lengths[i] / 4)
-    } else if (typeof (data[i]) !== 'number' && !(data[i] instanceof BN) && /[a-f]/.test(data[i])) {
+    } else if (typeof (data[i]) !== 'number' && !(data[i] instanceof BigNumber) && /[a-f]/.test(data[i])) {
       if (data[i].substring(0, 2) === '0x') data[i] = data[i].substring(2)
       packed += zeroPad(data[i], lengths[i] / 4)
     } else {
@@ -127,9 +127,9 @@ function pack (dataIn, lengths) {
  * @param {Object} order
  * @param {string} order.contract
  * @param {string} order.tokenGet
- * @param {string} order.amountGet
+ * @param {string|number|BigNumber} order.amountGet
  * @param {string} order.tokenGive
- * @param {string} order.amountGive
+ * @param {string|number|BigNumber} order.amountGive
  * @param {number} order.expires
  * @param {number} order.nonce
  * @param {Buffer} privateKeyBuffer
@@ -161,9 +161,9 @@ function createSignature (order, privateKeyBuffer) {
  * @param {Object} order
  * @param {string} order.contract
  * @param {string} order.tokenGet
- * @param {string} order.amountGet
+ * @param {string|number|BigNumber} order.amountGet
  * @param {string} order.tokenGive
- * @param {string} order.amountGive
+ * @param {string|number|BigNumber} order.amountGive
  * @param {number} order.expires
  * @param {number} order.nonce
  * @param {Signature} order.signature
